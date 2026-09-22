@@ -1,0 +1,840 @@
+/* =========================================
+   ADITI HERO
+========================================= */
+
+.aditi-hero {
+    position: relative;
+
+    width: 100%;
+
+    height: 300vh;
+
+    background: #000;
+
+    color: #fff;
+}
+
+
+/* =========================================
+   STICKY HERO STAGE
+========================================= */
+
+.aditi-hero-stage {
+    position: sticky;
+
+    top: 0;
+
+    width: 100%;
+
+    height: 100vh;
+    height: 100dvh;
+
+    overflow: hidden;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(255, 10, 120, 0.055),
+            transparent 38%
+        ),
+        #000;
+}
+
+
+/* =========================================
+   BACKGROUND DOT GRID
+========================================= */
+
+.aditi-grid {
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 0;
+
+    pointer-events: none;
+
+    opacity: 0.06;
+
+    background-image:
+        radial-gradient(
+            rgba(0, 229, 229, 0.8) 0.8px,
+            transparent 0.8px
+        );
+
+    background-size:
+        28px 28px;
+
+    -webkit-mask-image:
+        radial-gradient(
+            circle at center,
+            black,
+            transparent 78%
+        );
+
+    mask-image:
+        radial-gradient(
+            circle at center,
+            black,
+            transparent 78%
+        );
+}
+
+
+/* =========================================
+   CENTER GLOW
+========================================= */
+
+.aditi-hero-stage::before {
+    content: "";
+
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 680px;
+    height: 680px;
+
+    transform:
+        translate(
+            -50%,
+            -50%
+        );
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255, 10, 120, 0.07),
+            rgba(0, 229, 229, 0.02) 42%,
+            transparent 72%
+        );
+
+    filter:
+        blur(38px);
+
+    pointer-events: none;
+
+    z-index: 0;
+}
+
+
+/* =========================================
+   ADITI IDENTITY
+========================================= */
+
+.aditi-identity {
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 5;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+
+    padding:
+        0 24px;
+
+    text-align: center;
+
+    pointer-events: none;
+}
+
+
+.aditi-identity h1 {
+    margin: 0;
+
+    padding-left:
+        0.22em;
+
+    font-family:
+        "Space Mono",
+        monospace;
+
+    font-size:
+        clamp(
+            4.5rem,
+            14vw,
+            11rem
+        );
+
+    font-weight: 400;
+
+    line-height: 0.9;
+
+    letter-spacing:
+        0.22em;
+
+    color:
+        #ff0a78;
+
+    text-shadow:
+        0 0 26px
+        rgba(
+            255,
+            10,
+            120,
+            0.18
+        );
+}
+
+
+.aditi-identity p {
+    max-width:
+        900px;
+
+    margin:
+        28px auto 0;
+
+    font-family:
+        "Space Mono",
+        monospace;
+
+    font-size:
+        clamp(
+            0.62rem,
+            1.25vw,
+            1rem
+        );
+
+    line-height: 1.7;
+
+    letter-spacing:
+        0.14em;
+
+    text-transform:
+        uppercase;
+
+    text-align:
+        center;
+
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            0.58
+        );
+}
+
+
+/* =========================================
+   PARTICLE FIELD
+========================================= */
+
+.aditi-particle-field {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 1px;
+    height: 1px;
+
+    z-index: 6;
+
+    pointer-events: none;
+}
+
+
+.aditi-particle {
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    display: block;
+
+    border-radius: 50%;
+
+    pointer-events: none;
+}
+
+
+.aditi-particle.magenta {
+    background:
+        #ff0a78;
+
+    box-shadow:
+        0 0 8px
+        rgba(
+            255,
+            10,
+            120,
+            0.78
+        );
+}
+
+
+.aditi-particle.cyan {
+    background:
+        #00e5e5;
+
+    box-shadow:
+        0 0 8px
+        rgba(
+            0,
+            229,
+            229,
+            0.7
+        );
+}
+
+
+/* =========================================
+   EYE STAGE
+========================================= */
+
+.aditi-eyes-stage {
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 7;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    pointer-events: none;
+}
+
+
+.aditi-eyes-svg-wrapper {
+    width:
+        min(
+            78vw,
+            940px
+        );
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    pointer-events: none;
+}
+
+
+.aditi-eyes-svg {
+    display: block;
+
+    width: 100%;
+
+    height: auto;
+
+    overflow: visible;
+
+    filter:
+        drop-shadow(
+            0 0 12px
+            rgba(
+                255,
+                10,
+                120,
+                0.12
+            )
+        );
+}
+
+
+/* =========================================
+   MAIN EYE LINES
+========================================= */
+
+.eye-main-line {
+    fill: none;
+
+    stroke:
+        #ff0a78;
+
+    stroke-width:
+        4;
+
+    stroke-linecap:
+        round;
+
+    stroke-linejoin:
+        round;
+
+    filter:
+        url(
+            #aditiPinkGlow
+        );
+}
+
+
+.eye-secondary-line {
+    fill: none;
+
+    stroke:
+        rgba(
+            255,
+            10,
+            120,
+            0.7
+        );
+
+    stroke-width:
+        2.4;
+
+    stroke-linecap:
+        round;
+
+    stroke-linejoin:
+        round;
+}
+
+
+/* =========================================
+   IRIS
+========================================= */
+
+.eye-iris {
+    fill:
+        rgba(
+            0,
+            229,
+            229,
+            0.018
+        );
+
+    stroke:
+        #00e5e5;
+
+    stroke-width:
+        2.8;
+
+    filter:
+        url(
+            #aditiCyanGlow
+        );
+}
+
+
+.eye-iris-inner {
+    fill: none;
+
+    stroke:
+        rgba(
+            0,
+            229,
+            229,
+            0.52
+        );
+
+    stroke-width:
+        1.2;
+}
+
+
+.eye-iris-inner-faint {
+    opacity:
+        0.34;
+}
+
+
+/* =========================================
+   PUPIL
+========================================= */
+
+.eye-pupil {
+    fill:
+        #ff0a78;
+
+    filter:
+        url(
+            #aditiPinkGlow
+        );
+}
+
+
+/* =========================================
+   HIGHLIGHT.aditi-system-online {
+    
+========================================= */
+
+.eye-highlight {
+    fill:
+        rgba(
+            255,
+            255,
+            255,
+            0.82
+        );
+}
+
+
+/* =========================================
+   LASHES
+========================================= */
+
+.eye-lashes path {
+    fill: none;
+
+    stroke:
+        rgba(
+            255,
+            10,
+            120,
+            0.72
+        );
+
+    stroke-width:
+        2.1;
+
+    stroke-linecap:
+        round;
+}
+
+
+/* =========================================
+   TECH EDGE MARKS
+========================================= */
+
+.eye-tech-marks {
+    fill: none;
+
+    stroke:
+        rgba(
+            0,
+            229,
+            229,
+            0.35
+        );
+
+    stroke-width:
+        1;
+}
+
+
+/* =========================================
+   SYSTEM ONLINE
+========================================= */
+
+.aditi-system-online {
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    bottom: 10vh;
+
+    z-index: 9;
+
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 10px;
+
+    white-space: nowrap;
+
+    font-family: "Space Mono", monospace;
+
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+
+    text-align: center;
+
+    color: #00e5e5;
+
+    pointer-events: none;
+}
+
+
+.system-dot {
+    width:
+        7px;
+
+    height:
+        7px;
+
+    flex-shrink:
+        0;
+
+    border-radius:
+        50%;
+
+    background:
+        #22d87a;
+
+    box-shadow:
+        0 0 10px
+        rgba(
+            34,
+            216,
+            122,
+            0.55
+        );
+}
+
+
+/* =========================================
+   SCROLL INDICATOR
+========================================= */
+
+.aditi-scroll-indicator {
+    position: absolute;
+
+    left: 50%;
+
+    bottom:
+        38px;
+
+    z-index: 10;
+
+    transform:
+        translateX(
+            -50%
+        );
+
+    display: flex;
+
+    flex-direction:
+        column;
+
+    align-items:
+        center;
+
+    gap:
+        11px;
+
+    white-space:
+        nowrap;
+
+    font-family:
+        "Space Mono",
+        monospace;
+
+    font-size:
+        0.62rem;
+
+    letter-spacing:
+        0.15em;
+
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            0.38
+        );
+}
+
+
+.scroll-line {
+    width:
+        1px;
+
+    height:
+        34px;
+
+    background:
+        linear-gradient(
+            to bottom,
+            #ff0a78,
+            transparent
+        );
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (
+    max-width: 900px
+) {
+
+    .aditi-eyes-svg-wrapper {
+        width:
+            88vw;
+    }
+
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (
+    max-width: 700px
+) {
+
+    .aditi-identity {
+        padding:
+            0 18px;
+    }
+
+
+    .aditi-identity h1 {
+        font-size:
+            clamp(
+                3.5rem,
+                20vw,
+                7rem
+            );
+
+        letter-spacing:
+            0.14em;
+
+        padding-left:
+            0.14em;
+    }
+
+
+    .aditi-identity p {
+        max-width:
+            86vw;
+
+        margin-top:
+            20px;
+
+        font-size:
+            0.58rem;
+
+        line-height:
+            1.8;
+
+        letter-spacing:
+            0.1em;
+    }
+
+
+    .aditi-eyes-svg-wrapper {
+        width:
+            96vw;
+    }
+
+
+    .aditi-particle-field {
+        transform:
+            scale(
+                0.72
+            );
+    }
+
+
+    .aditi-system-online {
+        bottom:
+            11vh;
+
+        font-size:
+            0.66rem;
+
+        letter-spacing:
+            0.14em;
+    }
+
+
+    .aditi-scroll-indicator {
+        bottom:
+            24px;
+
+        font-size:
+            0.54rem;
+
+        letter-spacing:
+            0.12em;
+    }
+
+
+    .scroll-line {
+        height:
+            28px;
+    }
+
+
+    .aditi-hero-stage::before {
+        width:
+            420px;
+
+        height:
+            420px;
+    }
+
+}
+
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media (
+    max-width: 430px
+) {
+
+    .aditi-identity h1 {
+        font-size:
+            clamp(
+                3rem,
+                19vw,
+                5.5rem
+            );
+    }
+
+
+    .aditi-identity p {
+        max-width:
+            92vw;
+
+        font-size:
+            0.52rem;
+    }
+
+
+    .aditi-eyes-svg-wrapper {
+        width:
+            100vw;
+    }
+
+}
+
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (
+    prefers-reduced-motion: reduce
+) {
+
+    .aditi-hero {
+        height:
+            100vh;
+
+        height:
+            100dvh;
+    }
+
+
+    .aditi-grid {
+        opacity:
+            0.04;
+    }
+
+
+    .aditi-hero-stage::before {
+        filter:
+            none;
+    }
+
+}

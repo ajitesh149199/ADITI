@@ -1,0 +1,6 @@
+scenario,objective,detections,kept,delayed,suppressed,decisions_generated,audio_outputs,haptic_outputs,visual_outputs,models_avoided,cpu_saved,memory_saved_mb,latency_saved_ms,power_units_saved
+Obstacle Awareness,obstacle_awareness,1,0,1,0,0,0,0,0,4,85,850,530,9
+Navigation,navigation,1,0,1,0,0,0,0,0,4,85,850,530,9
+Object Identification,object_identification,1,1,0,0,1,1,1,0,4,85,850,530,9
+Text Reading,read_text,1,1,0,0,1,1,1,0,4,85,850,530,9
+General Assistance,general_assistance,1,0,1,0,0,0,0,0,4,85,850,530,9
