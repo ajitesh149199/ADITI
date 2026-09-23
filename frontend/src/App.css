@@ -11002,3 +11002,189 @@ aditi-live-status-pulse {
         display: none;
     }
 }
+
+
+/* =========================================================
+   FINAL DEMONSTRATION — MOBILE LAYOUT FIX
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .demo-validation-banner {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+
+        width: 100% !important;
+        padding: 20px !important;
+        gap: 18px !important;
+    }
+
+
+    /* Check icon */
+
+    .demo-validation-icon {
+        width: 52px !important;
+        height: 52px !important;
+
+        flex: 0 0 52px !important;
+
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+
+        margin: 0 !important;
+    }
+
+
+    /* Main text area */
+
+    .demo-validation-content {
+        display: block !important;
+
+        width: 100% !important;
+        max-width: none !important;
+        min-width: 0 !important;
+
+        flex: none !important;
+
+        margin: 0 !important;
+        padding: 0 !important;
+
+        text-align: left !important;
+    }
+
+
+    .demo-validation-content > span {
+        display: block !important;
+
+        width: 100% !important;
+        max-width: none !important;
+
+        margin: 0 0 10px !important;
+
+        white-space: normal !important;
+        word-break: normal !important;
+        overflow-wrap: normal !important;
+
+        line-height: 1.5 !important;
+    }
+
+
+    .demo-validation-content h3 {
+        display: block !important;
+
+        width: 100% !important;
+        max-width: none !important;
+
+        margin: 0 0 12px !important;
+
+        white-space: normal !important;
+        word-break: normal !important;
+        overflow-wrap: normal !important;
+
+        line-height: 1.45 !important;
+    }
+
+
+    .demo-validation-content p {
+        display: block !important;
+
+        width: 100% !important;
+        max-width: none !important;
+
+        margin: 0 !important;
+
+        white-space: normal !important;
+        word-break: normal !important;
+        overflow-wrap: normal !important;
+
+        line-height: 1.7 !important;
+    }
+
+
+    /* Validation badge */
+
+    .demo-status-pill {
+        position: static !important;
+
+        align-self: flex-start !important;
+
+        width: auto !important;
+        max-width: 100% !important;
+
+        margin: 0 !important;
+
+        white-space: nowrap !important;
+
+        flex: none !important;
+    }
+
+}
+
+
+/* =========================================================
+   VALIDATION SUMMARY — MOBILE LAYOUT FIX
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .validation-panel .validation-header {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+
+        width: 100% !important;
+
+        gap: 18px !important;
+        padding: 18px 0 !important;
+    }
+
+
+    /* Description */
+
+    .validation-panel .validation-header > div {
+        width: 100% !important;
+        min-width: 0 !important;
+
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .validation-panel .validation-header p {
+        width: 100% !important;
+        max-width: none !important;
+
+        margin: 0 !important;
+
+        text-align: left !important;
+
+        white-space: normal !important;
+        word-break: normal !important;
+        overflow-wrap: normal !important;
+
+        line-height: 1.7 !important;
+    }
+
+
+    /* VALIDATION PASSED badge */
+
+    .validation-panel .validation-badge {
+        position: static !important;
+
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+
+        align-self: flex-start !important;
+
+        width: auto !important;
+        max-width: 100% !important;
+
+        margin: 0 !important;
+
+        white-space: nowrap !important;
+        flex: none !important;
+    }
+
+}
