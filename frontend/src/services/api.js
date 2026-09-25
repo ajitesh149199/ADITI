@@ -54,6 +54,31 @@ export async function getDecision() {
 
 
 /* =========================================================
+   DECISION MATHEMATICS
+
+   Provides the complete calculation breakdown for:
+   - Relevance
+   - Reliability
+   - Trust
+========================================================= */
+
+export async function getDecisionMathematics() {
+
+    const response = await fetch(
+        `${API_BASE_URL}/decision/mathematics`
+    );
+
+    if (!response.ok) {
+        throw new Error(
+            "Failed to get decision mathematics"
+        );
+    }
+
+    return response.json();
+}
+
+
+/* =========================================================
    SIMULATOR
 ========================================================= */
 
@@ -85,6 +110,30 @@ export async function setScenario(scenarioName) {
     if (!response.ok) {
         throw new Error(
             "Failed to change scenario"
+        );
+    }
+
+    return response.json();
+}
+
+
+/* =========================================================
+   CURRENT SIMULATOR SCENARIO
+
+   Used by the interactive 3D Camera / Vision monitor.
+   Returns the complete scenario currently loaded by
+   SimulatorController.
+========================================================= */
+
+export async function getCurrentScenario() {
+
+    const response = await fetch(
+        `${API_BASE_URL}/simulator/current-scenario`
+    );
+
+    if (!response.ok) {
+        throw new Error(
+            "Failed to get current simulator scenario"
         );
     }
 

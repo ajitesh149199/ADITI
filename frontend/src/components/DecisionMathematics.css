@@ -1,0 +1,263 @@
+/* =========================================================
+   ADITI DECISION MATHEMATICS
+========================================================= */
+
+.decision-mathematics-panel {
+    overflow: hidden;
+}
+
+.decision-math-context {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+    margin: 16px 0;
+}
+
+.decision-math-context > div {
+    min-width: 0;
+    padding: 10px 12px;
+    border: 1px solid rgba(73, 229, 249, 0.16);
+    border-radius: 9px;
+    background: rgba(4, 17, 27, 0.62);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.decision-math-context span,
+.decision-math-formula span,
+.decision-math-kicker {
+    color: rgba(178, 224, 232, 0.58);
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
+}
+
+.decision-math-context strong {
+    color: #baf8ff;
+    font-size: 0.74rem;
+    overflow-wrap: anywhere;
+}
+
+.decision-math-sections {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.decision-math-section {
+    overflow: hidden;
+    border: 1px solid rgba(73, 229, 249, 0.17);
+    border-radius: 12px;
+    background: rgba(2, 12, 20, 0.56);
+}
+
+.decision-math-section-title {
+    width: 100%;
+    border: 0;
+    border-bottom: 1px solid rgba(73, 229, 249, 0.12);
+    background: rgba(6, 24, 34, 0.82);
+    color: #b9f8ff;
+    padding: 13px 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    font: inherit;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    text-align: left;
+}
+
+.decision-math-section-title:hover {
+    background: rgba(8, 34, 46, 0.9);
+}
+
+.decision-math-formula {
+    margin: 13px;
+    padding: 10px 12px;
+    border-left: 2px solid rgba(80, 237, 255, 0.72);
+    background: rgba(5, 26, 34, 0.68);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.decision-math-formula code {
+    color: #d5fbff;
+    font-size: 0.7rem;
+    white-space: normal;
+    overflow-wrap: anywhere;
+}
+
+.decision-math-grid {
+    display: grid;
+    grid-template-columns: repeat(
+        auto-fit,
+        minmax(260px, 1fr)
+    );
+    gap: 10px;
+    padding: 0 13px 13px;
+}
+
+.decision-math-card {
+    min-width: 0;
+    padding: 12px;
+    border: 1px solid rgba(83, 229, 247, 0.15);
+    border-radius: 9px;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(6, 24, 33, 0.82),
+            rgba(3, 13, 20, 0.82)
+        );
+}
+
+.decision-math-card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.decision-math-card h4 {
+    margin: 3px 0 0;
+    color: #d6fbff;
+    font-size: 0.86rem;
+    letter-spacing: 0.08em;
+}
+
+.decision-math-score {
+    flex: 0 0 auto;
+    min-width: 58px;
+    padding: 6px 8px;
+    border: 1px solid rgba(76, 235, 255, 0.34);
+    border-radius: 6px;
+    background: rgba(0, 222, 255, 0.06);
+    color: #72f1ff;
+    text-align: center;
+    font-size: 0.78rem;
+    font-weight: 700;
+}
+
+.decision-math-equations {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.math-equation-row {
+    display: grid;
+    grid-template-columns:
+        minmax(82px, 0.8fr)
+        minmax(110px, 1.2fr)
+        auto;
+    align-items: center;
+    gap: 8px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid rgba(164, 229, 237, 0.07);
+}
+
+.math-equation-label {
+    color: rgba(192, 231, 237, 0.66);
+    font-size: 0.62rem;
+}
+
+.math-equation-row code {
+    color: rgba(212, 247, 251, 0.78);
+    font-size: 0.62rem;
+    overflow-wrap: anywhere;
+}
+
+.math-equation-row strong {
+    color: #83f4ff;
+    font-size: 0.66rem;
+    white-space: nowrap;
+}
+
+.decision-math-total {
+    margin-top: 4px;
+    padding: 9px;
+    border: 1px solid rgba(84, 237, 255, 0.18);
+    border-radius: 6px;
+    background: rgba(0, 216, 255, 0.04);
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 8px;
+    align-items: center;
+}
+
+.decision-math-total span {
+    color: rgba(182, 228, 235, 0.62);
+    font-size: 0.58rem;
+    letter-spacing: 0.1em;
+}
+
+.decision-math-total code {
+    color: #d5fbff;
+    font-size: 0.62rem;
+    text-align: center;
+    overflow-wrap: anywhere;
+}
+
+.decision-math-total strong {
+    color: #72f1ff;
+    font-size: 0.72rem;
+    white-space: nowrap;
+}
+
+.decision-math-cap {
+    margin-top: 2px;
+    color: #ff7ce9;
+    font-size: 0.58rem;
+    letter-spacing: 0.1em;
+    text-align: right;
+}
+
+.decision-math-message,
+.decision-math-error {
+    margin: 14px 0 0;
+    padding: 11px 12px;
+    border: 1px solid rgba(78, 228, 247, 0.14);
+    border-radius: 8px;
+    background: rgba(4, 17, 25, 0.65);
+    color: rgba(201, 239, 244, 0.72);
+    font-size: 0.7rem;
+}
+
+.decision-math-error {
+    border-color: rgba(255, 91, 201, 0.22);
+    color: #ff9be4;
+}
+
+@media (max-width: 760px) {
+
+    .decision-math-context {
+        grid-template-columns: 1fr;
+    }
+
+    .decision-math-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .math-equation-row {
+        grid-template-columns: 1fr auto;
+    }
+
+    .math-equation-row code {
+        grid-column: 1 / -1;
+        grid-row: 2;
+    }
+
+    .decision-math-total {
+        grid-template-columns: 1fr;
+    }
+
+    .decision-math-total code {
+        text-align: left;
+    }
+}

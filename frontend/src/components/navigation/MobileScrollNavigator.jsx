@@ -8,12 +8,19 @@ const sections = [
     { id: "intro", label: "INTRO" },
     { id: "control", label: "CONTROL" },
     { id: "vision", label: "VISION" },
+
+    // Decision Mathematics
+    { id: "mathematics", label: "MATHEMATICS" },
+
     { id: "evaluation", label: "EVALUATION" },
     { id: "validation", label: "VALIDATION" },
     { id: "history", label: "HISTORY" },
-    { id: "charts", label: "CHARTS"},
+    { id: "charts", label: "CHARTS" },
     { id: "summary", label: "SUMMARY" },
-    { id: "final_demonstration", label: "FINAL DEMO"},
+    {
+        id: "final_demonstration",
+        label: "FINAL DEMO"
+    },
     { id: "sensors", label: "SENSORS" },
     { id: "output", label: "OUTPUT" },
     { id: "decision", label: "DECISION" },
@@ -120,7 +127,7 @@ function MobileScrollNavigator() {
                 <div className="mobile-scroll-section">
 
                     <span className="mobile-scroll-prefix">
-                        
+
                     </span>
 
                     <span className="mobile-scroll-label">

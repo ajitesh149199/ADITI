@@ -1,0 +1,372 @@
+/* =========================================================
+   ADITI TRUE 3D CAMERA / VISION MONITOR
+   React Three Fiber + Three.js
+========================================================= */
+
+.aditi-vision-panel {
+    overflow: hidden;
+}
+
+.vision-meta-row {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) auto;
+    gap: 12px;
+    align-items: stretch;
+    margin: 16px 0;
+}
+
+.vision-meta-row > div,
+.vision-reset-button {
+    border: 1px solid rgba(78, 235, 255, 0.18);
+    background: rgba(4, 17, 27, 0.72);
+    border-radius: 10px;
+    padding: 10px 12px;
+}
+
+.vision-meta-row > div {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+}
+
+.vision-meta-row span {
+    font-size: 0.66rem;
+    letter-spacing: 0.12em;
+    color: rgba(176, 218, 229, 0.62);
+}
+
+.vision-meta-row strong {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #dffcff;
+    font-size: 0.82rem;
+}
+
+.vision-reset-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    color: #9ff8ff;
+    cursor: pointer;
+    font: inherit;
+    transition: 160ms ease;
+}
+
+.vision-reset-button:hover {
+    border-color: rgba(78, 235, 255, 0.55);
+    background: rgba(10, 43, 56, 0.82);
+}
+
+.true-3d-viewport {
+    position: relative;
+    height: 560px;
+    overflow: hidden;
+    border: 1px solid rgba(67, 226, 255, 0.3);
+    border-radius: 16px;
+    background: #020b10;
+    box-shadow:
+        inset 0 0 60px rgba(0, 0, 0, 0.68),
+        0 0 26px rgba(0, 218, 255, 0.04);
+}
+
+.true-3d-viewport canvas {
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+    cursor: grab;
+    touch-action: none;
+}
+
+.true-3d-viewport canvas:active {
+    cursor: grabbing;
+}
+
+.true-3d-viewport::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    pointer-events: none;
+    opacity: 0.11;
+    background:
+        repeating-linear-gradient(
+            180deg,
+            transparent 0,
+            transparent 3px,
+            rgba(125, 239, 255, 0.14) 4px
+        );
+}
+
+.true-3d-viewport::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 6;
+    pointer-events: none;
+    background:
+        radial-gradient(
+            circle,
+            transparent 56%,
+            rgba(0, 0, 0, 0.48) 100%
+        );
+}
+
+.vision-top-hud,
+.vision-bottom-hud,
+.vision-side-hud,
+.ocr-hud,
+.vision-reticle,
+.vision-error,
+.vision-loading {
+    position: absolute;
+    z-index: 12;
+    pointer-events: none;
+}
+
+.vision-top-hud {
+    left: 18px;
+    right: 18px;
+    top: 15px;
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    color: rgba(174, 246, 255, 0.76);
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+}
+
+.live-dot {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    margin-right: 7px;
+    border-radius: 50%;
+    background: #63f5ff;
+    box-shadow: 0 0 9px #63f5ff;
+    animation: livePulse 1.3s ease-in-out infinite;
+}
+
+.vision-reticle {
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: rgba(111, 239, 255, 0.22);
+}
+
+.vision-side-hud {
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 10px;
+    border-top: 1px solid rgba(75, 235, 255, 0.3);
+    border-bottom: 1px solid rgba(75, 235, 255, 0.3);
+    color: #aef8ff;
+}
+
+.vision-side-hud.left {
+    left: 14px;
+}
+
+.vision-side-hud.right {
+    right: 14px;
+    text-align: right;
+}
+
+.vision-side-hud span,
+.vision-side-hud small {
+    font-size: 0.55rem;
+    letter-spacing: 0.12em;
+    color: rgba(184, 229, 236, 0.58);
+}
+
+.vision-side-hud strong {
+    font-size: 1rem;
+}
+
+.vision-bottom-hud {
+    left: 18px;
+    right: 18px;
+    bottom: 14px;
+    display: flex;
+    justify-content: space-between;
+    color: rgba(177, 239, 247, 0.6);
+    font-size: 0.58rem;
+    letter-spacing: 0.1em;
+}
+
+.ocr-hud {
+    left: 50%;
+    bottom: 47px;
+    transform: translateX(-50%);
+    min-width: 210px;
+    padding: 8px 12px;
+    border: 1px solid rgba(82, 240, 255, 0.36);
+    background: rgba(2, 18, 25, 0.9);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.ocr-hud span {
+    color: rgba(168, 230, 239, 0.6);
+    font-size: 0.55rem;
+    letter-spacing: 0.13em;
+}
+
+.ocr-hud strong {
+    color: #b9faff;
+    font-size: 0.78rem;
+}
+
+.vision-error,
+.vision-loading {
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    padding: 10px 14px;
+    border: 1px solid rgba(90, 231, 247, 0.25);
+    background: rgba(2, 14, 21, 0.92);
+    color: #baf7ff;
+    font-size: 0.76rem;
+}
+
+.three-detection-label {
+    min-width: 112px;
+    padding: 7px 9px;
+    border: 1px solid rgba(92, 240, 255, 0.72);
+    border-left: 3px solid #62efff;
+    border-radius: 3px;
+    background: rgba(1, 12, 18, 0.88);
+    box-shadow:
+        0 0 14px rgba(0, 224, 255, 0.12),
+        inset 0 0 14px rgba(0, 224, 255, 0.04);
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    color: #dffcff;
+    white-space: nowrap;
+    font-family: inherit;
+    pointer-events: none;
+}
+
+.three-detection-label strong {
+    color: #aef9ff;
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+}
+
+.three-detection-label span {
+    color: rgba(208, 244, 249, 0.74);
+    font-size: 0.5rem;
+}
+
+.vision-control-note {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: rgba(188, 235, 242, 0.56);
+    font-size: 0.66rem;
+    letter-spacing: 0.04em;
+    text-align: center;
+}
+
+.vision-object-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.vision-object-chip {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 135px;
+    padding: 8px 10px;
+    border: 1px solid rgba(72, 228, 248, 0.16);
+    border-radius: 8px;
+    background: rgba(4, 18, 26, 0.65);
+}
+
+.vision-object-chip strong {
+    color: #b6f9ff;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+}
+
+.vision-object-chip span,
+.vision-no-objects {
+    color: rgba(196, 231, 236, 0.62);
+    font-size: 0.62rem;
+}
+
+@keyframes livePulse {
+    0%,
+    100% {
+        opacity: 0.45;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+@media (max-width: 760px) {
+
+    .vision-meta-row {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .vision-reset-button {
+        grid-column: 1 / -1;
+    }
+
+    .true-3d-viewport {
+        height: 470px;
+    }
+
+    .vision-side-hud {
+        top: 38%;
+    }
+
+    .vision-bottom-hud {
+        flex-direction: column;
+        gap: 4px;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .vision-meta-row {
+        grid-template-columns: 1fr;
+    }
+
+    .vision-reset-button {
+        grid-column: auto;
+    }
+
+    .true-3d-viewport {
+        height: 420px;
+    }
+
+    .vision-top-hud {
+        font-size: 0.52rem;
+    }
+
+    .vision-side-hud {
+        display: none;
+    }
+
+    .ocr-hud {
+        min-width: 170px;
+        max-width: calc(100% - 36px);
+    }
+}

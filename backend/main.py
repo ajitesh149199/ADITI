@@ -252,6 +252,503 @@ def get_fusion():
         "results": fused_results
     }
 
+# =========================================================
+# DECISION MATHEMATICS
+# =========================================================
+# Exposes the real intermediate calculations used by ADITI
+# for Relevance, Reliability and Trust.
+#
+# IMPORTANT:
+# The scores themselves are still produced by the existing
+# RelevanceEngine and ReliabilityEngine. This endpoint only
+# exposes their inputs, weighted contributions and final
+# values so the frontend can explain the mathematics.
+# =========================================================
+
+@app.get("/decision/mathematics")
+def get_decision_mathematics():
+
+    with simulator_lock:
+
+        current_scenario = simulator.get_current_scenario()
+
+        scenario_objective = None
+
+        if current_scenario:
+            scenario_objective = current_scenario.get(
+                "objective"
+            )
+
+        inputs = simulator.collect_inputs()
+
+        context = context_manager.build_context(
+            scenario_objective,
+            inputs
+        )
+
+        relevance_results = (
+            relevance_engine.evaluate_camera_context(
+                context
+            )
+        )
+
+        reliability_results = (
+            reliability_engine.evaluate_inputs(
+                inputs
+            )
+        )
+
+        fused_results = (
+            fusion_engine.build_fused_results(
+                context,
+                relevance_results,
+                reliability_results
+            )
+        )
+
+        # -------------------------------------------------
+        # Relevance calculation breakdown
+        # -------------------------------------------------
+
+        relevance_breakdown = []
+
+        camera_context = context.get(
+            "camera",
+            {}
+        )
+
+        camera_objects = camera_context.get(
+            "objects",
+            []
+        )
+
+        objective = context.get(
+            "objective"
+        )
+
+        for detected_object in camera_objects:
+
+            object_name = detected_object.get(
+                "object",
+                "unknown"
+            )
+
+            distance = detected_object.get(
+                "distance"
+            )
+
+            direction = detected_object.get(
+                "direction"
+            )
+
+            confidence = detected_object.get(
+                "confidence",
+                0.0
+            )
+
+            # ---------------------------------------------
+            # Relevance contribution breakdown
+            #
+            # These rules mirror RelevanceEngine exactly.
+            # They are expanded here only so the dashboard
+            # can explain each contribution separately.
+            # ---------------------------------------------
+
+            normalized_object = str(
+                object_name
+            ).lower()
+
+            normalized_direction = str(
+                direction or "unknown"
+            ).lower()
+
+            objective_relevance = 0.0
+
+            if objective == "obstacle_awareness":
+
+                obstacle_objects = {
+                    "car",
+                    "bicycle",
+                    "motorcycle",
+                    "person",
+                    "wall",
+                    "pole",
+                    "stairs",
+                    "vehicle"
+                }
+
+                if normalized_object in obstacle_objects:
+                    objective_relevance = 0.35
+
+            elif objective == "navigation":
+
+                navigation_objects = {
+                    "door",
+                    "doorway",
+                    "stairs",
+                    "crosswalk",
+                    "road",
+                    "vehicle",
+                    "person"
+                }
+
+                if normalized_object in navigation_objects:
+                    objective_relevance = 0.30
+
+            elif objective == "object_identification":
+                objective_relevance = 0.40
+
+            elif objective == "environment_description":
+                objective_relevance = 0.25
+
+            elif objective == "general_assistance":
+                objective_relevance = 0.25
+
+
+            distance_relevance = 0.0
+
+            if distance is not None:
+
+                if distance <= 2:
+                    distance_relevance = 0.30
+
+                elif distance <= 5:
+                    distance_relevance = 0.20
+
+                elif distance <= 10:
+                    distance_relevance = 0.10
+
+
+            direction_relevance = 0.0
+
+            if normalized_direction in {
+                "ahead",
+                "front",
+                "center"
+            }:
+                direction_relevance = 0.20
+
+            elif normalized_direction in {
+                "left",
+                "right"
+            }:
+                direction_relevance = 0.10
+
+
+            confidence_contribution = (
+                confidence * 0.15
+            )
+
+            raw_relevance = (
+                objective_relevance
+                + distance_relevance
+                + direction_relevance
+                + confidence_contribution
+            )
+
+            final_relevance = min(
+                raw_relevance,
+                1.0
+            )
+
+            relevance_breakdown.append({
+                "object": object_name,
+                "objective": objective,
+                "distance": distance,
+                "direction": direction,
+                "confidence": confidence,
+
+                "objective_relevance":
+                    round(
+                        objective_relevance,
+                        3
+                    ),
+
+                "distance_relevance":
+                    round(
+                        distance_relevance,
+                        3
+                    ),
+
+                "direction_relevance":
+                    round(
+                        direction_relevance,
+                        3
+                    ),
+
+                "confidence_weight": 0.15,
+
+                "confidence_contribution":
+                    round(
+                        confidence_contribution,
+                        3
+                    ),
+
+                "raw_relevance":
+                    round(
+                        raw_relevance,
+                        3
+                    ),
+
+                "final_relevance":
+                    round(
+                        final_relevance,
+                        3
+                    ),
+
+                "capped_at_one":
+                    raw_relevance > 1.0
+            })
+
+        # -------------------------------------------------
+        # Reliability calculation breakdown
+        # -------------------------------------------------
+
+        reliability_breakdown = []
+
+        for result in reliability_results:
+
+            confidence = result.get(
+                "confidence",
+                0.0
+            )
+
+            source_weight = result.get(
+                "source_weight",
+                0.0
+            )
+
+            # ReliabilityEngine returns this as
+            # "freshness_score".
+            freshness = result.get(
+                "freshness_score",
+                0.0
+            )
+
+            confidence_contribution = (
+                confidence * 0.50
+            )
+
+            source_contribution = (
+                source_weight * 0.30
+            )
+
+            freshness_contribution = (
+                freshness * 0.20
+            )
+
+            calculated_reliability = (
+                confidence_contribution
+                + source_contribution
+                + freshness_contribution
+            )
+
+            reliability_breakdown.append({
+                "source": result.get(
+                    "source",
+                    "unknown"
+                ),
+
+                "confidence": confidence,
+                "confidence_weight": 0.50,
+                "confidence_contribution":
+                    round(
+                        confidence_contribution,
+                        3
+                    ),
+
+                "source_weight": source_weight,
+                "source_weight_factor": 0.30,
+                "source_contribution":
+                    round(
+                        source_contribution,
+                        3
+                    ),
+
+                "freshness": freshness,
+                "freshness_weight": 0.20,
+                "freshness_contribution":
+                    round(
+                        freshness_contribution,
+                        3
+                    ),
+
+                "calculated_reliability":
+                    round(
+                        calculated_reliability,
+                        3
+                    ),
+
+                "final_reliability":
+                    result.get(
+                        "reliability_score"
+                    )
+            })
+
+        # -------------------------------------------------
+        # Trust calculation breakdown
+        # -------------------------------------------------
+
+        trust_breakdown = []
+
+        # Camera reliability is the reliability value used for
+        # camera-detected objects. Keep it available as a safe
+        # fallback if a fused item does not expose the component
+        # score directly.
+        camera_reliability = 0.0
+
+        for reliability_item in reliability_results:
+
+            if (
+                reliability_item.get("source")
+                == "camera"
+            ):
+                camera_reliability = (
+                    reliability_item.get(
+                        "reliability_score",
+                        0.0
+                    )
+                )
+                break
+
+        # Relevance results are indexed by object so the
+        # explainability endpoint can recover the exact
+        # RelevanceEngine score when needed.
+        relevance_by_object = {}
+
+        for relevance_item in relevance_results:
+
+            relevance_key = str(
+                relevance_item.get(
+                    "object",
+                    "unknown"
+                )
+            ).lower()
+
+            relevance_by_object[
+                relevance_key
+            ] = relevance_item.get(
+                "relevance_score",
+                0.0
+            )
+
+        for item in fused_results:
+
+            object_name = item.get(
+                "object",
+                "unknown"
+            )
+
+            object_key = str(
+                object_name
+            ).lower()
+
+            # Prefer component values carried by FusionEngine.
+            # Fall back to the exact source-engine results.
+            relevance = item.get(
+                "relevance_score",
+                relevance_by_object.get(
+                    object_key,
+                    0.0
+                )
+            )
+
+            reliability = item.get(
+                "reliability_score",
+                camera_reliability
+            )
+
+            relevance_contribution = (
+                relevance * 0.60
+            )
+
+            reliability_contribution = (
+                reliability * 0.40
+            )
+
+            # Use the same ReliabilityEngine trust method used
+            # by ADITI instead of duplicating the final clamp
+            # and rounding behavior here.
+            calculated_trust = (
+                reliability_engine
+                .calculate_trust_score(
+                    relevance,
+                    reliability
+                )
+            )
+
+            trust_breakdown.append({
+                "object": object_name,
+
+                "relevance": relevance,
+                "relevance_weight": 0.60,
+                "relevance_contribution":
+                    round(
+                        relevance_contribution,
+                        3
+                    ),
+
+                "reliability": reliability,
+                "reliability_weight": 0.40,
+                "reliability_contribution":
+                    round(
+                        reliability_contribution,
+                        3
+                    ),
+
+                "calculated_trust":
+                    calculated_trust,
+
+                "final_trust":
+                    item.get(
+                        "trust_score",
+                        calculated_trust
+                    )
+            })
+
+        return {
+            "scenario": (
+                current_scenario.get(
+                    "name",
+                    "unknown"
+                )
+                if current_scenario
+                else "unknown"
+            ),
+
+            "objective": objective,
+
+            "formulas": {
+                "relevance": (
+                    "objective_relevance + "
+                    "distance_relevance + "
+                    "direction_relevance + "
+                    "(confidence * 0.15)"
+                ),
+
+                "reliability": (
+                    "(confidence * 0.50) + "
+                    "(source_weight * 0.30) + "
+                    "(freshness_score * 0.20)"
+                ),
+
+                "trust": (
+                    "(relevance * 0.60) + "
+                    "(reliability * 0.40)"
+                )
+            },
+
+            "relevance":
+                relevance_breakdown,
+
+            "reliability":
+                reliability_breakdown,
+
+            "trust":
+                trust_breakdown
+        }
+
+
 @app.get("/models/selection")
 def get_model_selection():
 
@@ -473,6 +970,36 @@ def get_simulator_scenarios():
         "scenarios":
             simulator.get_available_scenarios()
     }
+
+
+# =========================================================
+# CURRENT SIMULATOR SCENARIO
+# =========================================================
+# Exposes the complete scenario currently loaded by the
+# SimulatorController. The frontend Camera / Vision simulator
+# can use this endpoint so its visual scene always matches
+# the same stored camera, IMU, GPS and audio scenario data
+# used by the ADITI backend.
+# =========================================================
+
+@app.get("/simulator/current-scenario")
+def get_current_simulator_scenario():
+
+    with simulator_lock:
+
+        scenario = simulator.get_current_scenario()
+        scenario_key = simulator.get_current_scenario_key()
+
+        if scenario is None:
+            raise HTTPException(
+                status_code=404,
+                detail="No simulator scenario is currently loaded."
+            )
+
+        return {
+            "scenario_key": scenario_key,
+            "scenario": scenario
+        }
 
 
 @app.post("/simulator/scenario/{scenario_name}")

@@ -48,6 +48,9 @@ import ResourceMonitor
 import CameraView
     from "../components/CameraView";
 
+import DecisionMathematics
+    from "../components/DecisionMathematics";
+
 import EvaluationPanel
     from "../components/EvaluationPanel";
 
@@ -732,6 +735,30 @@ function Dashboard() {
                                     results={
                                         decision
                                             ?.fused_results
+                                    }
+
+                                />
+
+                            </ScrollReveal>
+
+                        </div>
+
+
+                        {/* ===============================
+                            DECISION MATHEMATICS
+                        =============================== */}
+
+                        <div
+                            id="mathematics"
+                            className="dashboard-wide"
+                        >
+
+                            <ScrollReveal>
+
+                                <DecisionMathematics
+
+                                    refreshKey={
+                                        refreshKey
                                     }
 
                                 />

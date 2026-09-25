@@ -22,6 +22,11 @@ const sections = [
     },
 
     {
+        id: "mathematics",
+        label: "MATHEMATICS"
+    },
+
+    {
         id: "evaluation",
         label: "EVALUATION"
     },
@@ -37,8 +42,8 @@ const sections = [
     },
 
     {
-        id:"charts",
-        label:"CHARTS"
+        id: "charts",
+        label: "CHARTS"
     },
 
     {
@@ -47,8 +52,8 @@ const sections = [
     },
 
     {
-        id:"final_demonstration",
-        label:"FINAL DEMO"
+        id: "final_demonstration",
+        label: "FINAL DEMO"
     },
 
     {
@@ -125,7 +130,10 @@ function DesktopScrollNavigator() {
                 const rect =
                     element.getBoundingClientRect();
 
-                if (rect.top <= window.innerHeight * 0.45) {
+                if (
+                    rect.top <=
+                    window.innerHeight * 0.45
+                ) {
                     currentSection =
                         section.id;
                 }

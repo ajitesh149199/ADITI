@@ -170,7 +170,7 @@ class RelevanceEngine:
                 objective
             )
 
-        results.append(result)
+            results.append(result)
 
         results.sort(
         key=lambda item: item["relevance_score"],
